@@ -1,6 +1,4 @@
 """Streamlit dashboard (the deployable live demo).  Run: streamlit run dashboard.py"""
-import os
-
 import pandas as pd
 import streamlit as st
 
@@ -9,8 +7,21 @@ from app.db import DB_PATH, TradeError, get_conn, record_trade
 from seed import seed
 
 st.set_page_config(page_title="Portfolio Risk Analyzer", page_icon="📈", layout="wide")
-if not os.path.exists(DB_PATH):
-    seed()
+
+
+def _has_data() -> bool:
+    """True only if the DB actually contains portfolios (an empty file isn't enough)."""
+    try:
+        c = get_conn()
+        n = c.execute("SELECT COUNT(*) FROM portfolios").fetchone()[0]
+        c.close()
+        return n > 0
+    except Exception:
+        return False
+
+
+if not _has_data():
+    seed(reset=True)  # rebuild from scratch if the DB is missing, empty or half-built
 
 conn = get_conn()
 st.title("📈 Portfolio Tracker & Risk Analyzer")
