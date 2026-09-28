@@ -9,8 +9,7 @@ all shown in an interactive dashboard.
 
 ## 🔗 Live demo
 
-**👉 https://YOUR-APP-NAME.streamlit.app** *(add after deploying, see [Deploy](#deploy-the-live-demo))*
-
+   **👉 [portfolio-risk-analyzer-1121.streamlit.app](https://portfolio-risk-analyzer-1121.streamlit.app/)**
 ## Screenshots
 
 | Dashboard overview | Risk metrics & correlation | Trade rejected (ACID rollback) |
